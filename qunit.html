@@ -26,17 +26,18 @@
       // Math.floor(); use JS's native Math object to utilize a flooring method; The Math.floor() function returns the largest integer less than or equal to a given number. I.O.W's; Math.floor(25.99999999999999999) === 25 = true (what ever the decimal place value is; screw it)
       // dayDiff should be === 0 = true // why?
 
-      console.log(diff);
+      console.log(diff); // mathematical time difference
 
-      console.log(dayDiff);
+      console.log(dayDiff); // actual days from now to then
 
     if (isNaN(dayDiff) || dayDiff < 0 || dayDiff > 31) {
       
-      console.log("Logic Error...");
-      return; 
+      console.log(dayDiff);
+      return "This post is over a month old"; 
     
     } else {
     
+      // program to handle weeks in a month...
       var postDate = dayDiff === 0 && (
         diff < 60 && "just now" ||
         diff < 120 && "1 minute ago" ||
@@ -77,7 +78,7 @@
     <p>blah blah blah...</p>
     <small class="extra">
       Posted <span class="time">
-        <a href="#2008/01/blah/57/" title="2016-03-14T20:24:17Z">
+        <a href="#2008/01/blah/57/" title="2010-03-14T20:24:17Z">
           <span>date of posting...</span>
         </a>
       </span>
@@ -86,6 +87,6 @@
   </li>
   <!-- more list items -->
 </ul>
- 
+
 </body>
 </html>
