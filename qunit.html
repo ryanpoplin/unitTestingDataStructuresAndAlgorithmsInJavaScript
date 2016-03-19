@@ -4,41 +4,33 @@
   <meta charset="utf-8">
   <title>Mangled date examples</title>
   <script>
-  // "use strict";
+  "use strict";
 
   // let's not worry about the bad code with the 'time' arg just yet...
-  function prettyDate(time) { // pretty date
+  function prettyDate(now, time) { // pretty date
       
       var date;
 
-      if (typeof time === "string") { // can add validations on proper argument being sent
-        date = new Date(time);
-      } else {
-        date = new Date(); // new Date instance using the time a creation argument (get a custom time, or the current time (now)) (refer to the Date() MDN for usage ref.)
-      }
-
+      // the ternary operator shines here
+      // new Date instance using the time a creation argument (get a custom time, or the current time (now)) (refer to the Date() MDN for usage ref.)
+      if (typeof time === "string") ? date = new Date(time) : date = new Date();
       console.log(date);
-
-      var diff = ((new Date().getTime() - date.getTime()) / 1000), // .getTime() method will return a UNIX time stamp; will give you the seconds since midnight, 1 Jan 1970
+      var diff = ((new Date().getTime() - date.getTime()) / 1000); // .getTime() method will return a UNIX time stamp; will give you the seconds since midnight, 1 Jan 1970
       // you get the difference between two dates (in UNIX time stamps), and then you divide this value by 1000 to get base-10 system value that represents seconds
-
-      dayDiff = Math.floor(diff / 86400); // how many seconds are in a day?; 86400 seconds
+      var dayDiff = Math.floor(diff / 86400); // how many seconds are in a day?; 86400 seconds
       // Math.floor(); use JS's native Math object to utilize a flooring method; The Math.floor() function returns the largest integer less than or equal to a given number. I.O.W's; Math.floor(25.99999999999999999) === 25 = true (what ever the decimal place value is; screw it)
       // dayDiff should be === 0 = true // why?
-
       console.log(diff); // mathematical time difference
-
       console.log(dayDiff); // actual days from now to then
 
     if (isNaN(dayDiff) || dayDiff < 0 || dayDiff > 31) {
       
       console.log(dayDiff);
-      return "This post is over a month old"; 
+      return "This post is over a month old";
     
     } else {
     
-      // program to handle weeks in a month...
-      var postDate = dayDiff === 0 && (
+      var postDate = dayDiff === 0 && ( // dayDiff must be zero '&&' in the () 
         diff < 60 && "just now" ||
         diff < 120 && "1 minute ago" ||
         diff < 3600 && Math.floor(diff / 60) +
@@ -46,7 +38,7 @@
         diff < 7200 && "1 hour ago" ||
         diff < 86400 && Math.floor(diff / 3600) +
           " hours ago") ||
-        dayDiff == 1 && "Yesterday" ||
+        dayDiff === 1 && "Yesterday" ||
         dayDiff < 7 && dayDiff + " days ago" ||
         dayDiff < 31 && Math.ceil(dayDiff / 7) +
           " weeks ago";
