@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mangled date examples</title>
+  <script>
+  // "use strict";
+
+  // let's not worry about the bad code with the 'time' arg just yet...
+  function prettyDate(time) { // pretty date
+      
+      var date;
+
+      if (typeof time === "string") { // can add validations on proper argument being sent
+        date = new Date(time);
+      } else {
+        date = new Date(); // new Date instance using the time a creation argument (get a custom time, or the current time (now)) (refer to the Date() MDN for usage ref.)
+      }
+
+      console.log(date);
+
+      var diff = ((new Date().getTime() - date.getTime()) / 1000), // .getTime() method will return a UNIX time stamp; will give you the seconds since midnight, 1 Jan 1970
+      // you get the difference between two dates (in UNIX time stamps), and then you divide this value by 1000 to get base-10 system value that represents seconds
+
+      dayDiff = Math.floor(diff / 86400); // how many seconds are in a day?; 86400 seconds
+      // Math.floor(); use JS's native Math object to utilize a flooring method; The Math.floor() function returns the largest integer less than or equal to a given number. I.O.W's; Math.floor(25.99999999999999999) === 25 = true (what ever the decimal place value is; screw it)
+      // dayDiff should be === 0 = true // why?
+
+      console.log(diff);
+
+      console.log(dayDiff);
+
+    if (isNaN(dayDiff) || dayDiff < 0 || dayDiff > 31) {
+      
+      console.log("Logic Error...");
+      return; 
+    
+    } else {
+    
+      var postDate = dayDiff === 0 && (
+        diff < 60 && "just now" ||
+        diff < 120 && "1 minute ago" ||
+        diff < 3600 && Math.floor(diff / 60) +
+          " minutes ago" ||
+        diff < 7200 && "1 hour ago" ||
+        diff < 86400 && Math.floor(diff / 3600) +
+          " hours ago") ||
+        dayDiff == 1 && "Yesterday" ||
+        dayDiff < 7 && dayDiff + " days ago" ||
+        dayDiff < 31 && Math.ceil(dayDiff / 7) +
+          " weeks ago";
+      console.log(postDate);
+      return postDate;
+    
+    }
+
+  }
+
+  window.onload = function() {
+    var links = document.getElementsByTagName("a");
+    for (var i = 0; i < links.length; i++) {
+      if (links[i].title) {
+        console.log(typeof links[i].title === "string");
+        var date = prettyDate(links[i].title);
+        if (date) {
+          links[i].innerHTML = date;
+        }
+      }
+    }
+  };
+  </script>
+</head>
+<body>
+ 
+<ul>
+  <li class="entry">
+    <p>blah blah blah...</p>
+    <small class="extra">
+      Posted <span class="time">
+        <a href="#2008/01/blah/57/" title="2016-03-14T20:24:17Z">
+          <span>date of posting...</span>
+        </a>
+      </span>
+      by <span class="author"><a href="#john/">John Resig</a></span>
+    </small>
+  </li>
+  <!-- more list items -->
+</ul>
+ 
+</body>
+</html>
