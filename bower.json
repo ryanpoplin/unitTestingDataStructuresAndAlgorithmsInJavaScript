@@ -1,0 +1,18 @@
+{
+  "name": "jsalgos",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Byrdann Fox"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/ryanpoplin/unitTestingDataStructuresAndAlgorithmsInJavaScript",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
