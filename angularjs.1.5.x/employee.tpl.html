@@ -1,0 +1,29 @@
+<h1>Employee Template</h1>
+<br>
+<!--<div ng-app="collectionBindingApp">-->
+	<!--<div ng-controller="EmployeeCtrl">-->
+		<h1>Employee Data:</h1>
+		<span>In a list -</span>
+		<ul>
+			<li ng-repeat="employee in employeeData.employees">
+				Employee number {{$index}} is - {{employee.name}}
+			</li>
+		</ul>
+		<hr>
+		<span>In a table -</span>
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="employee in employeeData.employees">	
+					<td>{{employee.name}}</td>
+					<td>{{employee.age}}</td>
+				</tr>
+			</tbody>
+		</table>
+	<!--</div>-->
+<!--</div>-->

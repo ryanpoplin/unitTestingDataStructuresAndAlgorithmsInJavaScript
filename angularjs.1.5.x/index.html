@@ -6,7 +6,13 @@
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="main.css">
 </head>
-<body>
+<body ng-app="routeApp">
+	<span>Choose:</span>
+	<br>
+	<br>
+	<a href="#employees">Employees</a>
+	<a href="#departments">Departments</a>
+	<div ng-view></div>
     <!--<div ng-app="testApp">
 		<div>
 			<h2 style="color: blue;">One way data binding? Cool!</h2>
@@ -22,36 +28,12 @@
 		</div>
 		<hr>
 	</div>-->
-	<div ng-app="collectionBindingApp">
-		<div ng-controller="EmployeeCtrl">
-			<h1>Employee Data:</h1>
-			<span>In a list -</span>
-			<ul>
-				<li ng-repeat="employee in employeeData.employees">
-					Employee number {{$index}} is - {{employee.name}}
-				</li>
-			</ul>
-			<hr>
-			<span>In a table -</span>
-			<table>
-				<!--<caption>table title and/or explanatory text</caption>-->
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Age</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="employee in employeeData.employees">	
-						<td>{{employee.name}}</td>
-						<td>{{employee.age}}</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
 	<script src="bower_components/angular/angular.min.js" type="text/javascript"></script>
-	<script src="test.app.js" type="text/javascript"></script>
+	<script src="bower_components/angular-route/angular-route.min.js" type="text/javascript"></script>
 	<script src="app.js" type="text/javascript"></script>
+	<!--<script src="test.app.js" type="text/javascript"></script>-->
+	<script src="employee.ctrl.js" type="text/javascript"></script>
+	<script src="department.ctrl.js" type="text/javascript"></script>
+	<script src="app.route.js" type="text/javascript"></script>
 </body>
 </html>
