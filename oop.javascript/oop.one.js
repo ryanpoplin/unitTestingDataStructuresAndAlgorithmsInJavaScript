@@ -19,3 +19,65 @@ function fizzBuzzer(n) {
     if (n % 5 === 0) return "Buzz";
 	return n.toString(); // Prove you know that JavaScript is Object-Oriented, why you need alter the type of a value in this program
 }
+
+var house = {
+	rooms: 7,
+	sharedEntrance: false, 
+	lock: function() {},
+	unlock: function() {}
+};
+
+console.log(house.rooms);
+console.log(house.sharedEntrance);
+
+house.lock();
+
+house.rooms = 8;
+
+house.floors = 2;
+
+console.log(house.rooms);
+
+var apartment = {
+	floors: 1,
+	rooms: 4,
+	sharedEntrance: true,
+	lock: function() {},
+	unlock: function() {}
+};
+
+function Accommodation() {};
+
+var houseInstance1 = new Accommodation();
+var apartmentInstance1 = new Accommodation();
+
+houseInstance1.constructor === Accommodation;
+apartmentInstance1.constructor === Accommodation;
+
+houseInstance1 instanceof Accommodation;
+apartmentInstance1 instanceof Accommodation;
+
+var apartmentInstance2 = new houseInstance1.constructor();
+apartmentInstance2 instanceof Accommodation;
+
+Accommodation.prototype.floors = 0;
+Accommodation.prototype.rooms = 0;
+Accommodation.prototype.sharedEntrance = false;
+Accommodation.prototype.lock = function() {};
+Accommodation.prototype.unlock = function() {};
+
+var houseInstance2 = new Accommodation();
+var apartmentInstance3 = new Accommodation();
+
+function Hacker(name, age, programmingLangs) {
+	this.name = name;
+	this.age = age;
+	this.programmingLangs = programmingLangs;
+}; 
+Hacker.prototype = {
+	logHackerData: function() {
+		console.log(this.name, this.age, this.programmingLangs);
+	}
+};
+var hacker = new Hacker("Ryan Poplin", 25, ["JavaScript", "Swift"]);
+hacker.logHackerData();
