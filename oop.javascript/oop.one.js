@@ -81,3 +81,20 @@ Hacker.prototype = {
 };
 var hacker = new Hacker("Ryan Poplin", 25, ["JavaScript", "Swift"]);
 hacker.logHackerData();
+Hacker.prototype.testLog = function() {
+	console.log("test log");
+};
+hacker.testLog();
+
+var myLib = {
+	myName: "Ryan Poplin"
+};
+
+function doSomething() {
+	var innerVar = 123;
+	myLib.myName = "Hello, Ryan Poplin";
+	function doSomethingElse() {
+		innerVar = 1234;		
+	}
+}
+
