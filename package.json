@@ -17,5 +17,6 @@
   },
   "homepage": "https://github.com/ryanpoplin/unitTestingDataStructuresAndAlgorithmsInJavaScript#readme",
   "dependencies": {
+    "jasmine": "^2.4.1"
   }
 }

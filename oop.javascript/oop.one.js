@@ -180,6 +180,7 @@ Super.prototype.polymorphism = function() {
 	console.log("Super");
 };
 Super.prototype.mixinTest = "mixinTest";
+
 function Sub() {}
 Sub.prototype = new Super();
 Sub.prototype.constructor = Sub;
@@ -193,6 +194,7 @@ Sub.prototype.polymorphism = function() {
 	console.log("Sub");
 };
 Sub.prototype.mixinTest = "mixinTest";
+
 var sup = new Super();
 // sup.polymorphism();
 var sub = new Sub();
@@ -219,4 +221,208 @@ var descriptionLogger = {
 
 // descriptionLogger.logSuper.apply(sup, ["Super Class Message"]);
 // console.log(sup.mixinTest);
+
+var add = function(one, two, three, four, five, six, seven, eight) {
+	var total = 0;
+	for (var index = 0, length = arguments.length; index < length; index++) {
+		total += arguments[index];
+	}
+	console.log(total);
+};
+// add(1, 2, 3, 4, 5, 6, 7, 8);
+
+function Vehicle() { this.isAlarmed = false; }
+Vehicle.prototype.alarm = function(note, time) {
+	var message = "Alarm activated at " + time + " with the note: " + note;
+	this.isAlarmed = true;
+	console.log(message);
+};
+
+function Truck() { this.isLocked = false; }
+Truck.prototype = new Vehicle();
+Truck.prototype.constructor = Truck;
+Truck.prototype.alarm = function() {
+	this.isLocked = true;
+	Vehicle.prototype.alarm.apply(this, arguments);
+};
+
+var truck = new Truck();
+// console.log(truck.isLocked);
+// truck.alarm("Alarm activated", new Date());
+// console.log(truck.isLocked);
+
+function A() {}
+// A.prototype = new B();
+A.prototype.message = "A";
+A.prototype.logMessage = function() {
+	// var that = this;
+	// console.log(this);
+	// console.log(this.message);
+	var b = B.prototype.logMessage.call(this);
+	// console.log(b);
+	// function inner() {
+	// 	console.log(that);
+	// 	function innerInner() {
+	// 		console.log(that);
+	// 	}
+	// 	innerInner();
+	// }
+	// inner();
+	// return this;
+};
+function B() {}
+// B.prototype = new A();
+B.prototype.message = "B";
+B.prototype.logMessage = function() {
+	// var that = this;
+	// console.log(this);
+	// console.log(this.message);
+	var a = this;
+	a.message = "B";
+	return this;
+	// A.prototype.logMessage.call(this);
+	// function inner() {
+	// 	console.log(that);
+	// 	function innerInner() {
+	// 		console.log(that);
+	// 	}
+	// 	innerInner();
+	// }
+	// inner();
+	// return this;
+};
+
+var a = new A();
+var b = new B();
+
+a.logMessage();
+// context pass...
+// class communication...
+// console.log(a.message);
+// b.logMessage();
+
+// now there's Node.js Modules and ES6 Modules to replace the IIFE's...
+// sort of old school
+var Complex = (function() {
+	function Complex() {}
+
+	var _isLocked = false,
+	    _isAlarmed = false, 
+	    _alarmMessage = "Alarm activated!"
+
+	function _alarm() {
+		_isAlarmed = true;
+		console.log(_alarmMessage);
+	}
+
+	function _disableAlarm() {
+		_isAlarmed = false;
+	}
+
+	// anything on the prototype chain is public
+	Complex.prototype.lock = function() {
+		_isLocked = true;
+		_alarm();
+	};
+
+	Complex.prototype.unlock = function() {
+		_isLocked = false;
+		_disableAlarm();
+	};
+
+	Complex.prototype.getIsLocked = function() {
+		return _isLocked;
+	};
+
+	Complex.prototype.setAlarmMessage = function(message) {
+		_alarmMessage = message;
+	};
+
+	return Complex;
+}());
+
+var complex = new Complex();
+// complex.lock();
+
+// function Scope() {
+// 	function _privateAccess() {
+// 		console.log("_private access");
+// 	}
+// 	Scope.prototype.publicAccess = function() {
+// 		_privateAccess();
+// 	};
+// }
+// var scope = new Scope();
+// scope.publicAccess();
+
+
+// CONTINUE THIS LATER...
+// var Class = (function() {
+// 	function create(classDefinition, parentPrototype) {
+// 		var _NewClass = function() {
+// 			if (this.initialize && typeof this.initialize === "function") {
+// 				this.initialize.apply(this, arguments);
+// 			}
+// 		},
+// 		_name;
+		
+// 		if (parentPrototype) {
+// 			_NewClass.prototype = new parentPrototype.constructor();
+// 			for (_name in parentPrototype) {
+// 				if (parentPrototype.hasOwnProperty(_name)) {
+// 					_NewClass.prototype[_name] = parentPrototype[_name];
+// 				}
+// 			}
+// 		}
+		
+// 		function polymorph(thisFunction, parentFunction) {
+// 			return function() {
+// 				var output;
+// 				this.__parent = parentFunction;
+// 				output = thisFunction.apply(this, arguments);
+// 				delete this._parent;
+// 				return output;
+// 			};
+// 		}
+// 	}
+// }());
+
+var objA = {
+	methodA: function() {
+		console.log(this);
+		var that = this;
+		function scopeChange() {
+			console.log(that);
+		}
+		scopeChange();
+	}
+};
+
+var objB = {
+	methodB: function() {
+		console.log(this);
+		var that = this;
+		function scopeChange() {
+			console.log(that);
+		}
+		scopeChange();
+	}
+};
+
+// objA.methodA();
+// objB.methodB();
+
+function scopeTestings() {
+	// this.prop = "prop...";
+	console.log(this);
+	function inner() {
+		// console.log(this);
+		function innerInner() {
+			// console.log(this);
+		}
+		innerInner();
+	}
+	inner();
+}
+// ();
 
